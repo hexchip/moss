@@ -1,0 +1,24 @@
+manifest:
+  remotes:
+    - name: duomotai
+      url-base: https://cloud.listenai.com/CSKG962172
+  projects:
+    - name: duomotai_ap
+      remote: duomotai
+      revision: v1.10.0
+      import:
+        name-allowlist:
+          - csk
+          - zephyr
+          - cmsis # required by the ARM port
+          - mbedtls
+          - csk6_cm33
+          - protobuf-c
+          - esp-hosted
+          - littlefs
+          - fatfs
+          - lsf-for-zephyr
+          - lsf
+          - urpc
+          - lvgl
+          - freertos_shims

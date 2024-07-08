@@ -1,0 +1,19 @@
+identifier: csk6_moss
+name: CSK6 Moss
+type: mcu
+arch: arm
+toolchain:
+  - zephyr
+  - gnuarmemb
+  - xtools
+supported:
+  - gpio
+  - uart
+  - dma
+  - nvs
+  - i2c
+  - spi
+  - watchdog
+
+ram: 320
+flash: 16000

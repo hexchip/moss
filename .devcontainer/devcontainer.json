@@ -1,0 +1,21 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/cpp
+{
+	"name": "moss",
+
+	"image": "listenai/csk6:2.0.0",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack"
+			]
+		}
+	},
+
+	// fix error: The command "lisa zep build -t menuconfig" will throw a "locale.Error"
+	"containerEnv": {
+		"LANG": "zh_CN.utf8"
+	}
+}

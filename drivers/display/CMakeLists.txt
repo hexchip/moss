@@ -1,0 +1,3 @@
+zephyr_library_amend()
+
+zephyr_library_sources_ifdef(CONFIG_ST7789V_MOSS display_st7789v_moss.c)

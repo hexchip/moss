@@ -1,0 +1,17 @@
+/*
+ * Copyright (c) 2023 Anhui Listenai Co., Ltd.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include <listenai/linker/app-res.h>
+
+APP_RES_SECTION(venus_cp, CONFIG_FLASH_RES_CP_ADDR)
+
+#if defined(CONFIG_CAPABILITY_FD)
+APP_RES_SECTION(fd_face_detect, CONFIG_FLASH_RES_FD_FACE_DETECT_ADDR)
+APP_RES_SECTION(fd_face_align, CONFIG_FLASH_RES_FD_FACE_ALIGN_ADDR)
+APP_RES_SECTION(fd_face_verify, CONFIG_FLASH_RES_FD_FACE_VERIFY_ADDR)
+APP_RES_SECTION(fd_anti_spoofing, CONFIG_FLASH_RES_FD_ANTI_SPOOFING_ADDR)
+APP_RES_SECTION(fd_face_depth, CONFIG_FLASH_RES_FD_FACE_DEPTH_ADDR)
+APP_RES_SECTION(fd_anti_bilinear, CONFIG_FLASH_RES_FD_ANTI_BILINEAR_ADDR)
+#endif /* CONFIG_CAPABILITY_FD */

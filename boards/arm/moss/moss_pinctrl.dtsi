@@ -1,0 +1,91 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+#include <csk/csk6_pinctrl.dtsi>
+
+&pinctrl{
+        pinctrl_uart0_rx_default: uart0_rx_default{
+                pinctrls = <UART0_RXD_GPIOA_02>;
+        };
+
+        pinctrl_uart0_tx_default: uart0_tx_default{
+                pinctrls = <UART0_TXD_GPIOA_03>;
+        };
+
+        pinctrl_uart2_rx_default: uart2_rx_default{
+                pinctrls = <UART0_TXD_GPIOA_15>;
+        };
+
+        pinctrl_uart2_tx_default: uart2_tx_default{
+                pinctrls = <UART2_TXD_GPIOA_18>;
+        };
+
+
+        pinctrl_i2c1_scl_default: i2c1_scl_default{
+                pinctrls = <I2C1_SCL_GPIOB_09>;
+        };
+
+        pinctrl_i2c1_sda_default: i2c1_sda_default{
+                pinctrls = <I2C1_SDA_GPIOB_08>;
+        };
+
+
+        pinctrl_spi1_cs_default: spi1_cs_default{
+                pinctrls = <SPI1_CS_N_GPIOB_03>;
+        };
+
+        pinctrl_spi1_sclk_default: spi1_sclk_default {
+                pinctrls = <SPI1_CLK_GPIOB_04>;
+        };
+        
+        pinctrl_spi1_mosi_default: spi1_mosi_default{
+                pinctrls = <SPI1_MOSI_GPIOB_05>;
+        };
+
+
+        pinctrl_dvp_clkout_default: dvp_clkout_default{
+                pinctrls = <CLKP_OUT_GPIOA_11>;
+        };
+
+        pinctrl_dvp_pclk_default: dvp_pclk_default{
+                pinctrls = <I_PIXEL_CLK_GPIOA_12>;
+        };
+
+        pinctrl_dvp_hsync_default: dvp_hync_default{
+                pinctrls = <I_H_SYNC_GPIOA_13>;
+        };
+
+        pinctrl_dvp_vsync_default: dvp_vsync_default{
+                pinctrls = <I_V_SYNC_GPIOA_14>;
+        };
+
+        pinctrl_dvp_d0_default: dvp_d0_default{
+                pinctrls = <I_PIXEL_DATA4_GPIOA_04>;
+        };
+
+        pinctrl_dvp_d1_default: dvp_d1_default{
+                pinctrls = <I_PIXEL_DATA5_GPIOA_05>;
+        };
+
+        pinctrl_dvp_d2_default: dvp_d2_default{
+                pinctrls = <I_PIXEL_DATA6_GPIOA_06>;
+        };
+
+        pinctrl_dvp_d3_default: dvp_d3_default{
+                pinctrls = <I_PIXEL_DATA7_GPIOA_10>;
+        };
+
+        pinctrl_dvp_d4_default: dvp_d4_default{
+                pinctrls = <I_PIXEL_DATA8_GPIOA_19>;
+        };
+
+        pinctrl_dvp_d5_default: dvp_d5_default{
+                pinctrls = <I_PIXEL_DATA9_GPIOA_20>;
+        };
+
+        pinctrl_dvp_d6_default: dvp_d6_default{
+                pinctrls = <I_PIXEL_DATA10_GPIOA_08>;
+        };
+
+        pinctrl_dvp_d7_default: dvp_d7_default{
+                pinctrls = <I_PIXEL_DATA11_GPIOA_09>;
+        };
+};

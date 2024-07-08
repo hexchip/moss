@@ -1,0 +1,219 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+
+/dts-v1/;
+#include <csk/csk6011a.dtsi>
+#include <zephyr/dt-bindings/dt-util.h>
+#include <zephyr/dt-bindings/gpio/gpio.h>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include "moss_pinctrl.dtsi"
+
+/ {
+        model = "moss";
+        compatible = "rice-shine,moss";
+
+        chosen {
+                zephyr,console = &uart2;
+                zephyr,shell-uart = &uart2;
+                zephyr,sram = &sram0;
+                zephyr,itcm = &itcm0;
+                zephyr,dtcm = &dtcm0;
+                zephyr,flash_controller = &flash;
+                zephyr,flash = &flash0;
+                zephyr,entropy = &trng;
+                zephyr,display=&st7789v;
+                /* other chosen settings  for your hardware */
+        };
+
+        /*
+         * Your board-specific hardware: buttons, LEDs, sensors, etc.
+         */
+
+        leds {
+                compatible = "gpio-leds";
+                led_rgb_red: led_rgb_red {
+                        gpios = <&gpioa 17 GPIO_ACTIVE_LOW>;
+                };
+                led_rgb_green: led_rgb_green {
+                        gpios = <&gpiob 2 GPIO_ACTIVE_LOW>;
+                };
+                led_rgb_blue: led_rgb_blue {
+                        gpios = <&gpioa 16 GPIO_ACTIVE_LOW>;
+                };
+        };
+
+        /* These aliases are provided for compatibility with samples */
+        aliases {
+                led-rgb-red = &led_rgb_red;
+                led-rgb-green = &led_rgb_green;
+                led-rgb-blue = &led_rgb_blue;
+        };
+
+        buttons {
+                gpio-keys {
+                        compatible = "zephyr,gpio-keys";
+
+                        key-1 {
+                                gpios = <&gpiob 1 GPIO_ACTIVE_LOW>;
+                                zephyr,code = <INPUT_KEY_1>;
+                        };
+
+                        key-2 {
+                                gpios = <&gpiob 10 GPIO_ACTIVE_LOW>;
+                                zephyr,code = <INPUT_KEY_2>;
+                        };
+                };
+        };
+};
+
+&flash0 {
+        reg = <0x18000000 DT_SIZE_M(16)>;
+        write-block-size = <4>;
+        erase-block-size = <4096>;
+        partitions {
+                compatible = "fixed-partitions";
+                #address-cells = <1>;
+                #size-cells = <1>;
+
+                /*The last 4K of flash is used for capability authentication, do not modify it*/
+                reserve_partition: partition@fff000{
+                        label = "reserve_capability_authentication";
+                        reg = <0xfff000 0x1000>;          
+                };
+        };
+};
+
+&uart0 {
+        status = "disabled";
+        pinctrl-0 = <&pinctrl_uart0_rx_default &pinctrl_uart0_tx_default>;
+        pinctrl-names = "default";
+        current-speed = <115200>;
+};
+
+&uart2 {
+        status = "okay";
+        pinctrl-0 = <
+        &pinctrl_uart2_rx_default 
+        &pinctrl_uart2_tx_default
+        >;
+        pinctrl-names = "default";
+        current-speed = <115200>;
+};
+
+&i2c1 {
+        status = "okay";
+        pinctrl-0 = <&pinctrl_i2c1_scl_default &pinctrl_i2c1_sda_default>;
+        pinctrl-names = "default";
+
+	gc0328: gc0328@21 {
+		compatible = "galaxyc,gc0328";
+		status = "okay";
+		reg = <0x21>;
+	};
+};
+
+&dvp {
+        status = "okay";
+        sensor = <&gc0328>;
+        clock-prescaler = <20>;
+        data-align-type = "high_align";
+        pclk-polarity = "post_edge_sampling";
+        hsync-polarity = "active_high";
+        vsync-polarity = "active_low";
+
+        pinctrl-0 = <
+        &pinctrl_dvp_clkout_default
+        &pinctrl_dvp_vsync_default
+        &pinctrl_dvp_hsync_default
+        &pinctrl_dvp_pclk_default
+        &pinctrl_dvp_d0_default
+        &pinctrl_dvp_d1_default
+        &pinctrl_dvp_d2_default
+        &pinctrl_dvp_d3_default
+        &pinctrl_dvp_d4_default
+        &pinctrl_dvp_d5_default
+        &pinctrl_dvp_d6_default
+        &pinctrl_dvp_d7_default
+        >;
+        pinctrl-names = "default";
+
+};
+
+&spi1 {
+        status = "okay";
+        pinctrl-0 = <&pinctrl_spi1_sclk_default &pinctrl_spi1_mosi_default &pinctrl_spi1_cs_default>;
+        pinctrl-names = "default";
+
+        st7789v: st7789v@0 {
+                compatible = "sitronix,st7789v";
+                status = "okay";
+                spi-max-frequency = <20000000>;
+                reg = <0>;
+                cmd-data-gpios = <&gpiob 7 1>;
+                reset-gpios = <&gpiob 6 1>;
+                width = <240>;
+                height = <135>;
+                x-offset = <40>;
+                y-offset = <52>;
+                // reg: 0xBB
+                vcom = <0x1e>;
+                // reg: 0xB7
+                gctrl = <0x35>;
+                // reg: 0xC3
+                vrhs = <0x0b>;
+                // reg: 0xC4
+                vdvs = <0x20>;
+                // reg: 0x36
+                mdac = <0xA3>;
+                // reg: 0x26
+                gamma = <0x01>;
+                // reg: 0x3a
+                colmod = <0x05>;
+                // reg: 0xc0
+                lcm = <0x3c>;
+                // reg: 0xb2
+                porch-param = [ 0c 0c 00 33 33  ];
+                // reg: 0xDF
+                cmd2en-param = [ 5a 69 02 01  ];
+                // reg: 0xD0
+                pwctrl1-param = [ a4 a1  ];
+                // reg: 0xE0
+                pvgam-param = [ d0 06 0b 07 07 24 2e 32 46 37 13 13 2d 33  ];
+                // reg: 0xE1
+                nvgam-param = [ d0 02 06 09 08 05 29 44 42 38 14 14 2a 30  ];
+                // reg: b0
+                ram-param = [ 00 F0  ];
+                // reg: b1
+                rgb-param = [ CD 08 14  ];
+        };
+};
+
+&dma0 {
+        dma-channels = <6>;
+        status = "okay";
+};
+
+&mailbox0 {
+        status = "okay";
+};
+
+&rtc1 {
+        status = "okay";
+};
+
+&crypto {
+        status = "okay";
+};
+
+/* disabled */
+
+&uart1 {
+        status = "disabled";
+};
+
+&spi0 {
+	status = "disabled";
+};
+
+&i2c0 {
+        status = "disabled";
+};

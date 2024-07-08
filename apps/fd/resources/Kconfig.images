@@ -1,0 +1,60 @@
+# SPDX-License-Identifier: Apache-2.0
+
+DT_CHOSEN_RES_CP := resource,cp
+
+config FLASH_RES_CP_ADDR
+	def_hex $(dt_chosen_reg_addr_hex,$(DT_CHOSEN_RES_CP))
+
+config FLASH_RES_CP_SIZE
+	def_int $(dt_chosen_reg_size_int,$(DT_CHOSEN_RES_CP))
+
+if CAPABILITY_FD
+DT_CHOSEN_RES_FD_FACE_DETECT := resource,fd_face_detect
+
+config FLASH_RES_FD_FACE_DETECT_ADDR
+	def_hex $(dt_chosen_reg_addr_hex,$(DT_CHOSEN_RES_FD_FACE_DETECT))
+
+config FLASH_RES_FD_FACE_DETECT_SIZE
+	def_int $(dt_chosen_reg_size_int,$(DT_CHOSEN_RES_FD_FACE_DETECT))
+
+DT_CHOSEN_RES_FD_FACE_ALIGN := resource,fd_face_align
+
+config FLASH_RES_FD_FACE_ALIGN_ADDR
+	def_hex $(dt_chosen_reg_addr_hex,$(DT_CHOSEN_RES_FD_FACE_ALIGN))
+
+config FLASH_RES_FD_FACE_ALIGN_SIZE
+	def_int $(dt_chosen_reg_size_int,$(DT_CHOSEN_RES_FD_FACE_ALIGN))
+
+DT_CHOSEN_RES_FD_FACE_VERIFY := resource,fd_face_verify
+
+config FLASH_RES_FD_FACE_VERIFY_ADDR
+	def_hex $(dt_chosen_reg_addr_hex,$(DT_CHOSEN_RES_FD_FACE_VERIFY))
+
+config FLASH_RES_FD_FACE_VERIFY_SIZE
+	def_int $(dt_chosen_reg_size_int,$(DT_CHOSEN_RES_FD_FACE_VERIFY))
+
+DT_CHOSEN_RES_FD_ANTI_SPOOFING := resource,fd_anti_spoofing
+
+config FLASH_RES_FD_ANTI_SPOOFING_ADDR
+	def_hex $(dt_chosen_reg_addr_hex,$(DT_CHOSEN_RES_FD_ANTI_SPOOFING))
+
+config FLASH_RES_FD_ANTI_SPOOFING_SIZE
+	def_int $(dt_chosen_reg_size_int,$(DT_CHOSEN_RES_FD_ANTI_SPOOFING))
+
+DT_CHOSEN_RES_FD_FACE_DEPTH := resource,fd_face_depth
+
+config FLASH_RES_FD_FACE_DEPTH_ADDR
+	def_hex $(dt_chosen_reg_addr_hex,$(DT_CHOSEN_RES_FD_FACE_DEPTH))
+
+config FLASH_RES_FD_FACE_DEPTH_SIZE
+	def_int $(dt_chosen_reg_size_int,$(DT_CHOSEN_RES_FD_FACE_DEPTH))
+
+DT_CHOSEN_RES_FD_ANTI_BILINEAR := resource,fd_anti_bilinear
+
+config FLASH_RES_FD_ANTI_BILINEAR_ADDR
+	def_hex $(dt_chosen_reg_addr_hex,$(DT_CHOSEN_RES_FD_ANTI_BILINEAR))
+
+config FLASH_RES_FD_ANTI_BILINEAR_SIZE
+	def_int $(dt_chosen_reg_size_int,$(DT_CHOSEN_RES_FD_ANTI_BILINEAR))
+
+endif # CAPABILITY_FD

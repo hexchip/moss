@@ -1,0 +1,24 @@
+# Copyright (c) 2023 Anhui Listenai Co., Ltd.
+# SPDX-License-Identifier: Apache-2.0
+
+config CAPABILITY_FD
+	bool "Enable FD"
+	select GCP
+	select GCL_COMP_RES
+	select GCS_SERVICE_FD
+	select GCL_FD
+	default n
+
+if CAPABILITY_FD
+	config GCL_HEAP_SRAM_SIZE
+		default 40960
+
+	config GCL_HEAP_PSRAM_SIZE
+		default 81920
+
+	config GCL_HEAP_SRAM_NOCACHE_SIZE
+		default 20480
+
+	config GCL_HEAP_PSRAM_NOCACHE_SIZE
+		default 20480
+endif

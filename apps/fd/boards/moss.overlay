@@ -1,0 +1,98 @@
+/ {
+	chosen {
+		zephyr,code-partition = &ap_code_partition;
+		resource,cp = &cp_code_partition;
+		resource,littlefs = &littlefs_partition;
+		resource,fd_face_detect = &res_fd_face_detect_partition;
+		resource,fd_face_align = &res_fd_face_align_partition;
+		resource,fd_face_verify = &res_fd_face_verify_partition;
+		resource,fd_anti_spoofing = &res_fd_anti_spoofing_partition;
+		resource,fd_face_depth = &res_fd_face_depth_partition;
+		resource,fd_anti_bilinear = &res_fd_anti_bilinear_partition;
+	};
+
+	fstab {
+		compatible = "zephyr,fstab";
+		lfs1: lfs1 {
+			compatible = "zephyr,fstab,littlefs";
+			mount-point = "/lfs";
+			partition = <&littlefs_partition>;
+			automount;
+			read-size = <16>;
+			prog-size = <16>;
+			cache-size = <64>;
+			lookahead-size = <32>;
+			block-cycles = <4096>;
+		};
+	};
+};
+
+&flash0 {
+	reg = <0x18000000 DT_SIZE_M(16)>;
+	write-block-size = <4>;
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		ap_code_partition: partition@0 {
+			label = "ap_code";
+			reg = <0x00000000 DT_SIZE_M(2)>;
+		};
+
+		cp_code_partition: partition@200000 {
+			label = "cp_code";
+			reg = <0x00200000 DT_SIZE_M(1)>;
+		};
+
+		littlefs_partition: partition@300000 {
+			label = "littlefs_partition";
+			reg = <0x00300000 DT_SIZE_M(2)>;
+		};
+
+		res_fd_face_detect_partition: partition@500000 {
+			reg = <0x500000 683232>;
+		};
+
+		res_fd_face_align_partition: partition@600000 {
+			reg = <0x600000 1576000>;
+		};
+
+		res_fd_face_verify_partition: partition@800000 {
+			reg = <0x800000 3044064>;
+		};
+
+		res_fd_anti_spoofing_partition: partition@b00000 {
+			reg = <0xb00000 260048>;
+		};
+
+		res_fd_face_depth_partition: partition@b40000 {
+			reg = <0xb40000 304192>;
+		};
+
+		res_fd_anti_bilinear_partition: partition@c00000 {
+			reg = <0xc00000 528304>;
+		};
+	};
+};
+
+&psram0 {
+	compatible = "listenai,csk6-psram";
+	reg = <0x30000000 DT_SIZE_M(8)>;
+	#address-cells = <0x1>;
+	#size-cells = <0x1>;
+
+	psram_cp: psram_cp@30000000 {
+		compatible = "listenai,csk6-psram-partition";
+		reg = <0x30000000 0x510000>;
+		status = "okay";
+	};
+
+	psram_ap: psram_ap@30510000 {
+		compatible = "zephyr,memory-region",
+			     "listenai,csk6-psram-partition";
+		reg = <0x30510000 0x2f0000>;
+		status = "okay";
+		zephyr,memory-region = "PSRAMAP";
+	};
+};

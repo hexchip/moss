@@ -1,0 +1,70 @@
+{
+	"configurations": [
+		{
+			"cwd": "${workspaceRoot}",
+			"executable": "${workspaceFolder}/build/zephyr/zephyr.elf",
+			"name": "LISA DAPlink Launch",
+			"request": "launch",
+			"type": "cortex-debug",
+			"servertype": "pyocd",
+			"targetId": "csk6001",
+			"serverpath": "/home/lisa/.listenai/lisa-zephyr/venv/bin/pyocd",
+			"armToolchainPath": "/home/lisa/.listenai/lisa-zephyr/packages/node_modules/@binary/zephyr-sdk-0.14.2/binary/arm-zephyr-eabi/bin",
+			"toolchainPrefix": "arm-zephyr-eabi",
+			"interface": "swd",
+			"runToEntryPoint": "main",
+			"overrideRestartCommands": [
+				"monitor reset",
+				"monitor halt",
+				"load"
+			],
+			"overrideLaunchCommands": [
+				"set $sp=((int*)_vector_table)[0]",
+				"monitor reset",
+				"monitor halt",
+				"load"
+			],
+			"gdbPath": "/home/lisa/.listenai/lisa-zephyr/packages/node_modules/@binary/zephyr-sdk-0.14.2/binary/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb-no-py"
+		},
+		{
+			"type": "cortex-debug",
+			"request": "launch",
+			"cwd": "${workspaceRoot}",
+			"name": "LISA Jlink Launch",
+			"executable": "${workspaceFolder}/build/zephyr/zephyr.elf",
+			"device": "Cortex-M33",
+			"servertype": "jlink",
+			"rtos": "Zephyr",
+			"serverpath": "/home/lisa/.listenai/lisa-zephyr/packages/node_modules/@binary/jlink-venus/binary/JLinkGDBServer",
+			"armToolchainPath": "/home/lisa/.listenai/lisa-zephyr/packages/node_modules/@binary/zephyr-sdk-0.14.2/binary/arm-zephyr-eabi/bin",
+			"toolchainPrefix": "arm-zephyr-eabi",
+			"interface": "swd",
+			"runToMain": true,
+			"runToEntryPoint": "main",
+			"serverArgs": [
+				"-timeout",
+				"0",
+				"-strict",
+				"-singlerun",
+				"-vd",
+				"-ir",
+				"-localhostonly",
+				"1",
+				"-endian",
+				"little"
+			],
+			"overrideRestartCommands": [
+				"monitor reset",
+				"monitor halt",
+				"load"
+			],
+			"overrideLaunchCommands": [
+				"set $sp=((int*)_vector_table)[0]",
+				"monitor reset",
+				"monitor halt",
+				"load"
+			],
+			"gdbPath": "/home/lisa/.listenai/lisa-zephyr/packages/node_modules/@binary/zephyr-sdk-0.14.2/binary/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb-no-py"
+		}
+	]
+}
