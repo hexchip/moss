@@ -1,4 +1,14 @@
-## 环境搭建
+# MOSS
+
+这是一个DIY的人脸识别小相机，使用的是聆思科技的[CSK 6011A](https://www.listenai.com/products/chips/csk6/)芯片。
+
+依赖于聆思科技提供的[多模态开发板 SDK](https://cloud.listenai.com/CSKG962172/duomotai_ap)，并基于其中的[人脸识别示例](https://cloud.listenai.com/CSKG962172/duomotai_ap/-/tree/master/apps/fd)修改而来。
+
+参考了 Zephyr官方的示例应用：https://github.com/zephyrproject-rtos/example-application ，从而形成了可配置的独立项目。
+
+硬件设计资料：https://oshwhub.com/sunhaoqin/csk6011
+
+## 开发环境搭建
 
 ### 本地主机开发环境
 
